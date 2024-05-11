@@ -1,6 +1,7 @@
 package module
 
 import (
+	"fmt"
 	"strings"
 
 	"github.com/dop251/goja"
@@ -17,7 +18,57 @@ func (h *Harbor) CreateProject(body goja.Value) string {
 
 	rt := h.vu.Runtime()
 	var project models.ProjectReq
+	fmt.Printf("111\n")
 	err := rt.ExportTo(body, &project)
+	if err != nil {
+		fmt.Sprintf("222, err= %s\n", err)
+	}
+	if project.Metadata.AutoSbomGeneration != nil {
+		fmt.Printf("AutoSbomGeneration is NOT nil, value=%s\n", *project.Metadata.AutoSbomGeneration)
+	} else {
+		fmt.Println("AutoSbomGeneration is nil")
+	}
+	if project.Metadata.AutoScan != nil {
+		fmt.Printf("AutoScan is NOT nil, value=%s\n", *project.Metadata.AutoScan)
+	} else {
+		fmt.Println("AutoScan is nil")
+	}
+	if project.Metadata.EnableContentTrust != nil {
+		fmt.Printf("EnableContentTrust is NOT nil, value=%s\n", *project.Metadata.EnableContentTrust)
+	} else {
+		fmt.Println("EnableContentTrust is nil")
+	}
+	if project.Metadata.EnableContentTrustCosign != nil {
+		fmt.Printf("EnableContentTrustCosign is NOT nil, value=%s\n", *project.Metadata.EnableContentTrustCosign)
+	} else {
+		fmt.Println("EnableContentTrustCosign is nil")
+	}
+	if project.Metadata.AutoSbomGeneration != nil {
+		fmt.Printf("PreventVul is NOT nil, value=%s\n", *project.Metadata.PreventVul)
+	} else {
+		fmt.Println("PreventVul is nil")
+	}
+	if project.Metadata.Public != "" {
+		fmt.Printf("Public is NOT empty, value=%s\n", project.Metadata.Public)
+	} else {
+		fmt.Println("Public is empty")
+	}
+	if project.Metadata.RetentionID != nil {
+		fmt.Printf("RetentionID is NOT nil, value=%s\n", *project.Metadata.RetentionID)
+	} else {
+		fmt.Println("RetentionID is nil")
+	}
+	if project.Metadata.ReuseSysCVEAllowlist != nil {
+		fmt.Printf("ReuseSysCVEAllowlist is NOT nil, value=%s\n", *project.Metadata.ReuseSysCVEAllowlist)
+	} else {
+		fmt.Println("ReuseSysCVEAllowlist is nil")
+	}
+	if project.Metadata.Severity != nil {
+		fmt.Printf("Severity is NOT nil, value=%s\n", *project.Metadata.Severity)
+	} else {
+		fmt.Println("Severity is nil")
+	}
+
 	Check(h.vu.Runtime(), err)
 
 	params := operation.NewCreateProjectParams()
